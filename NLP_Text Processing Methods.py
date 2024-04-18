@@ -43,6 +43,13 @@ words = nltk.word_tokenize(paragraph)
 print(words)
 
 #Stemming Process
+"""
+Stemming is a text preprocessing technique in natural language processing (NLP) that converts raw text data into a readable format. 
+Stemming involves removing or modifying word endings or other affixes to reduce the inflected form of a word. For example, "am", "are", and "is" can be stemmed to "be". 
+This process allows word forms that differ in non-relevant ways to be merged and treated as equivalent.
+
+"""
+
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 
@@ -66,6 +73,14 @@ print(stm_tkn_sent)
 
 
 #Lemmitization Process
+"""
+Lemmatization is a text pre-processing technique in natural language processing (NLP) that breaks down a word to its root meaning, also known as alemma. 
+For example, the word "better" would be reduced to its root word, "lemme", or "good". 
+Lemmatization is more accurate than stemming, but it's also more time consuming because it involves deriving the meaning of a word from something like a dictionary. 
+
+"""
+
+
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 
@@ -77,7 +92,7 @@ lmt_tkn_sent = nltk.sent_tokenize(paragraph)
 
 
 for i in range(len(lmt_tkn_sent)):
-    #Tokenizing Paragraph sentences to 
+    #Tokenizing Paragraph sentences to words for futher lemmatization process
     lmt_wrd_tkn = nltk.word_tokenize(lmt_tkn_sent[i])
     
     #Applying lemmatization process by eliminating stopwords on tokenized words
