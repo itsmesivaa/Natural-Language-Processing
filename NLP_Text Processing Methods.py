@@ -104,3 +104,68 @@ for i in range(len(lmt_tkn_sent)):
 print(lmt_tkn_sent)
 
 
+#Bag of Words
+"""Bag of words (BoW) is a Natural Language Processing (NLP) strategy that converts text into numbers based on word frequency, 
+without considering the order or context of the words. The BoW model is a simple and intuitive approach to representing text data. 
+It's used to preprocess text because algorithms in NLP work on numbers."""
+
+print(paragraph)
+
+#Cleaning the Data / Pre-processing before applying Bag of words vectorization
+
+import re
+from nltk.stem import PorterStemmer
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+
+#Object Creation for Stemming & Lemmatization
+
+stmg = PorterStemmer()
+lmtz = WordNetLemmatizer()
+
+#Tokenizing paragraph to sentences for further processing
+para_tkn = nltk.sent_tokenize(paragraph)
+
+#Stemming function to process text
+def stemming(para_tkn):
+    stm_txt = []
+    for z in range(len(para_tkn)):
+        txt = re.sub('^A-Za-z',' ',para_tkn[z])
+        txt = re.sub(r"\'s", '',para_tkn[z]) #Removing 's from the text for better content
+        txt = txt.lower().split()
+        txt = [stmg.stem(x) for x in txt if x not in set(stopwords.words('english'))] # Stemming Process
+        txt = ' '.join(txt)
+        stm_txt.append(txt)
+    return stm_txt
+
+#Lemmatization function to process text
+def lemmatization(para_tkn):
+    lmtz_txt = []
+    for z in range(len(para_tkn)):
+        txt = re.sub('^A-Za-z',' ',para_tkn[z])
+        txt = re.sub(r"\'s", '',para_tkn[z]) #Removing 's from the text for better content
+        txt = txt.lower().split()
+        txt = [lmtz.lemmatize(x) for x in txt if x not in set(stopwords.words('english'))] # Stemming Process
+        txt = ' '.join(txt)
+        lmtz_txt.append(txt)
+    return lmtz_txt
+
+#Calling Stemming function
+final_stem_op = stemming(para_tkn)
+print(final_stem_op)
+
+#Calling lemmatization function
+final_lemmatize_op = lemmatization(para_tkn)
+print(final_lemmatize_op)
+
+
+#Creating Bag of Words Model(Document Matrix) after pre-processing
+#Nothing but storing features as vectors representation for the sentences and its word occurences.
+from sklearn.feature_extraction.text import CountVectorizer
+
+#Initializing object 
+cv = CountVectorizer()
+
+s_x = cv.fit_transform(final_stem_op).toarray()
+
+l_x = cv.fit_transform(final_lemmatize_op).toarray()
