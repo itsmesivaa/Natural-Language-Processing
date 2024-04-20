@@ -169,3 +169,32 @@ cv = CountVectorizer()
 s_x = cv.fit_transform(final_stem_op).toarray()
 
 l_x = cv.fit_transform(final_lemmatize_op).toarray()
+
+
+#TF-IDF 
+'''TF-IDF stands for term frequency-inverse document frequency, and it's a statistical method used in 
+information retrieval (IR) and natural language processing (NLP) to measure the importance of a word 
+to a document in a collection. It's also used in machine learning. TF-IDF is the product of two statistics: 
+term frequency (TF) and inverse document frequency (IDF). TF is the frequency of a word, 
+while IDF is a measure of how rare the word is across the corpus. TF-IDF adjusts for the fact that some words appear more frequently in general.'''
+
+import re
+from nltk.stem import PorterStemmer
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+
+#Tokenizing paragraph to sentences for further processing
+para_tkn = nltk.sent_tokenize(paragraph)
+
+#Calling Lemmatization function to eradicate stopwords and to 
+lmtz = WordNetLemmatizer()
+final_lemmatize_op = lemmatization(para_tkn)
+print(final_lemmatize_op)
+
+#Creating TF-IDF models
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+#Creating object for TF-IDF models
+tf_idf = TfidfVectorizer()
+
+tf_idfX = tf_idf.fit_transform(final_lemmatize_op).toarray()
