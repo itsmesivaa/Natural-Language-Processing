@@ -22,7 +22,7 @@ fn_data.head(40)
 train_X.head(40)
 
 #Copying label column data 
-y = fn_data['label']
+y = fn_data['label'][0:18285]
 
 y
 
@@ -65,7 +65,7 @@ def rephrase(b):
 
 #Calling lemmatization function
 
-x = rephrase(msg['text'])
+x = rephrase(msg['title'])
 print(x)
 x[49]
 
